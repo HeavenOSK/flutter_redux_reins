@@ -43,7 +43,7 @@ class Store<S> {
   Stream<S> get onChange => _state.stream;
 
   /// Dispatches action to top of the middleware or reducer.
-  void dispatch(dynamic action) => _dispatchers[0](action);
+  void dispatch(dynamic action) => _dispatchers.first(action);
 
   List<NextDispatcher> _createDispatchers(List<Middleware<S>> middleware) {
     final dispatchers = <NextDispatcher>[]..add(_reducerQueue.add);
