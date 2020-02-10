@@ -33,8 +33,7 @@ class Store<S> {
   final Reducer<S> _reducer;
   List<NextDispatcher> _dispatchers;
   final BehaviorSubject<S> _state;
-  final StreamController<dynamic> _reducerQueue =
-      StreamController<dynamic>.broadcast();
+  final _reducerQueue = StreamController<dynamic>.broadcast();
 
   /// A current value of state.
   S get state => _state.value;
