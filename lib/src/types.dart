@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 
-import 'redux.dart';
+import 'core.dart';
 
 /// A function which is executed when type matched of [TypedReducer].
 ///
@@ -111,7 +111,7 @@ class TypedMiddleware<S, A> {
   }
 }
 
-/// A callback for [InjectionTypedMiddleware].
+/// A callback for [TypedInjectionMiddleware].
 ///
 /// * [S] is type of your [Store]'s state.
 /// * [A] is type of action which is matched.
@@ -132,8 +132,8 @@ typedef InjectionMiddlewareCallback<S, A, D> = void Function(
 /// * [D] is type of a dependency which is injected.
 ///
 /// # Usage
-class InjectionTypedMiddleware<S, A, D> {
-  const InjectionTypedMiddleware({
+class TypedInjectionMiddleware<S, A, D> {
+  const TypedInjectionMiddleware({
     @required this.dependency,
     @required this.callback,
   })  : assert(dependency != null),

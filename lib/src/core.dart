@@ -26,7 +26,7 @@ class Store<S> {
         _state = BehaviorSubject.seeded(initialState) {
     _dispatchers = _createDispatchers(middlewareList);
     _reducerQueue.stream
-        .map<S>((dynamic action) => _reducer(state, action))
+        .map<S>((dynamic action) => _reducer(currentState, action))
         .distinct((previous, next) => previous == next)
         .listen(_state.add);
   }
@@ -37,17 +37,17 @@ class Store<S> {
   final _reducerQueue = StreamController<dynamic>.broadcast();
 
   /// A current value of state.
-  S get state => _state.value;
+  S get currentState => _state.value;
 
   /// A stream that emits the current state when it changes.
-  Stream<S> get onChange => _state.stream;
+  Stream<S> get state => _state.stream;
 
   /// Dispatches action to top of the middleware or reducer.
   void dispatch(dynamic action) => _dispatchers.first(action);
 
-  List<Dispatcher> _createDispatchers(List<Middleware<S>> middleware) {
+  List<Dispatcher> _createDispatchers(List<Middleware<S>> middlewareList) {
     final dispatchers = <Dispatcher>[]..add(_reducerQueue.add);
-    for (final middleware in middleware.reversed) {
+    for (final middleware in middlewareList.reversed) {
       final next = dispatchers.last;
       dispatchers.add(
         (dynamic action) => middleware(this, action, next),

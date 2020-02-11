@@ -5,13 +5,14 @@ class AppState {
     @required this.counter,
   });
 
-  factory AppState.initialize() => AppState._(
-        counter: 0,
-      );
+  factory AppState.initialize() => AppState._(counter: 0);
 
   final int counter;
 
-  AppState copyWith({int counter}) => AppState._(
+  AppState copyWith({
+    int counter,
+  }) =>
+      AppState._(
         counter: counter ?? this.counter,
       );
 }

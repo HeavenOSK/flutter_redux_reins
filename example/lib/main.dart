@@ -22,7 +22,7 @@ class MyHomePage extends StatelessWidget {
       home: Scaffold(
         body: Center(
           child: StreamBuilder<int>(
-            stream: store.onChange.map((state) => state.counter),
+            stream: store.state.map((state) => state.counter),
             builder: (context, snapshot) {
               return Text(
                 '${snapshot.data}',
