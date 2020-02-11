@@ -19,7 +19,14 @@ typedef Middleware<S> = Function(
   Dispatcher next,
 );
 
-extension CombineReducer on Reducer {}
+Reducer<S> combineReducers<S>(Iterable<Reducer<S>> reducers) {
+  return (S state, dynamic action) {
+    for (final reducer in reducers) {
+      state = reducer(state, action);
+    }
+    return state;
+  };
+}
 
 /// A Reducer class which provides type matching.
 ///

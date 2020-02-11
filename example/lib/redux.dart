@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:redux_reins/redux_reins.dart';
 
 class AppState {
   AppState._({
@@ -19,7 +20,13 @@ class AppState {
 
 class CounterIncrementAction {}
 
-AppState reducer(AppState state, dynamic action) {
+final reducer = combineReducers(
+  [
+    counterReducer,
+  ],
+);
+
+AppState counterReducer(AppState state, dynamic action) {
   if (action is CounterIncrementAction) {
     return state.copyWith(
       counter: state.counter + 1,
