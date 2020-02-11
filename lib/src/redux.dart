@@ -1,18 +1,19 @@
 import 'dart:async';
 
-import 'package:meta/meta.dart';
+import 'package:flutter/widgets.dart';
 import 'package:rxdart/rxdart.dart';
 
 typedef Reducer<S> = S Function(S state, dynamic action);
 
-typedef NextDispatcher = void Function(dynamic action);
+typedef Dispatcher = void Function(dynamic action);
 
 typedef Middleware<S> = Function(
   Store<S> store,
   dynamic action,
-  NextDispatcher next,
+  Dispatcher next,
 );
 
+/// A store for Redux architecture.
 class Store<S> {
   Store({
     @required S initialState,
@@ -31,7 +32,7 @@ class Store<S> {
   }
 
   final Reducer<S> _reducer;
-  List<NextDispatcher> _dispatchers;
+  List<Dispatcher> _dispatchers;
   final BehaviorSubject<S> _state;
   final _reducerQueue = StreamController<dynamic>.broadcast();
 
@@ -44,8 +45,8 @@ class Store<S> {
   /// Dispatches action to top of the middleware or reducer.
   void dispatch(dynamic action) => _dispatchers.first(action);
 
-  List<NextDispatcher> _createDispatchers(List<Middleware<S>> middleware) {
-    final dispatchers = <NextDispatcher>[]..add(_reducerQueue.add);
+  List<Dispatcher> _createDispatchers(List<Middleware<S>> middleware) {
+    final dispatchers = <Dispatcher>[]..add(_reducerQueue.add);
     for (final middleware in middleware.reversed) {
       final next = dispatchers.last;
       dispatchers.add(
