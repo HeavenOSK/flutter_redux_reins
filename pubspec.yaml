@@ -1,10 +1,10 @@
 name: redux_reins
 description: TODO
 version: 0.0.1
-author: Masayuki Ono <mono0926@gmail.com>
-homepage: https://github.com/mono0926/redux_reins
+author: Ryunosuke Watanabe<heavenosk@gmail.com>
+homepage: https://github.com/heavenosk/redux_reins
 environment:
-  sdk: ">=2.5.0 <3.0.0"
+  sdk: ">=2.6.0 <3.0.0"
 dependencies:
   rxdart: ^0.23.1
   provider: ^4.0.3

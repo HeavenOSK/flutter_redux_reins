@@ -7,7 +7,19 @@ import 'core.dart';
 /// * [S] is type of your [Store]'s state.
 /// * [A] is type of action which is matched.
 ///
+typedef Reducer<S> = S Function(S state, dynamic action);
+
 typedef ReducerCallback<S, A> = S Function(S state, A action);
+
+typedef Dispatcher = void Function(dynamic action);
+
+typedef Middleware<S> = Function(
+  Store<S> store,
+  dynamic action,
+  Dispatcher next,
+);
+
+extension CombineReducer on Reducer {}
 
 /// A Reducer class which provides type matching.
 ///

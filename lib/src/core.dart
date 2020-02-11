@@ -3,15 +3,7 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:rxdart/rxdart.dart';
 
-typedef Reducer<S> = S Function(S state, dynamic action);
-
-typedef Dispatcher = void Function(dynamic action);
-
-typedef Middleware<S> = Function(
-  Store<S> store,
-  dynamic action,
-  Dispatcher next,
-);
+import 'types.dart';
 
 /// A store for Redux architecture.
 class Store<S> {
@@ -32,9 +24,9 @@ class Store<S> {
   }
 
   final Reducer<S> _reducer;
-  List<Dispatcher> _dispatchers;
   final BehaviorSubject<S> _state;
   final _reducerQueue = StreamController<dynamic>.broadcast();
+  List<Dispatcher> _dispatchers;
 
   /// A current value of state.
   S get currentState => _state.value;
